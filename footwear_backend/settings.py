@@ -1,5 +1,6 @@
-
 from pathlib import Path
+import os
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +16,6 @@ SECRET_KEY = 'django-insecure--pxyrjhd5s9&l62ekui3mxs!eolp0ezbi6mdy4)+e*$px(grt#
 DEBUG = False
 
 ALLOWED_HOSTS = ['shoe-backend-jbhb.onrender.com', 'localhost', '127.0.0.1']
-
 
 
 # Application definition
@@ -35,14 +35,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'accounts',
     'orders',
-    
-    
-    
 ]
 
-
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Must be first in the list
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,12 +51,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'footwear_backend.urls'
 
+CORS_ALLOW_ALL_ORIGINS = False  # Explicitly disable allow all
+
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://shoe-frontend-tau.vercel.app/"
-   
+    "https://shoe-frontend-tau.vercel.app",
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Only if using cookies or auth headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'Content-Type',
+    'Authorization',
 ]
 
 TEMPLATES = [
@@ -82,8 +86,6 @@ WSGI_APPLICATION = 'footwear_backend.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -93,27 +95,15 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Kolkata'
@@ -124,29 +114,19 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-import os
-
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "/static/"
-STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'footwear_backend/static']
-
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Newsletter
-# --- Production (real Gmail SMTP) ---
+
+# Newsletter (email) settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -155,9 +135,10 @@ EMAIL_HOST_USER = 'akila271819@gmail.com'
 EMAIL_HOST_PASSWORD = 'jqkb jgvi iobd hwrb'  
 DEFAULT_FROM_EMAIL = 'akila271819@gmail.com'
 
+
+# Django REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # if using JWT
-        
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 }
