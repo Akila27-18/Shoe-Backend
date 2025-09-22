@@ -13,9 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--pxyrjhd5s9&l62ekui3mxs!eolp0ezbi6mdy4)+e*$px(grt#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['shoe-backend-jbhb.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['shoe-backend-jbhb.onrender.com', 
+                 'localhost', 
+                 '127.0.0.1']
 
 
 # Application definition
@@ -51,9 +53,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'footwear_backend.urls'
 
-CORS_ALLOW_ALL_ORIGINS = False  # Explicitly disable allow all
-
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://shoe-frontend-tau.vercel.app",
