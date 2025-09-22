@@ -14,7 +14,8 @@ SECRET_KEY = 'django-insecure--pxyrjhd5s9&l62ekui3mxs!eolp0ezbi6mdy4)+e*$px(grt#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['shoe-backend-jbhb.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
@@ -53,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'footwear_backend.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://localhost:5173",
@@ -115,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
